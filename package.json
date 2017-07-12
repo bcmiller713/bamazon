@@ -1,0 +1,23 @@
+{
+  "name": "bamazon",
+  "version": "1.0.0",
+  "description": "amazon marketplace app using command line node and mysql",
+  "main": "bamazon-customer.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bcmiller713/bamazon.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bcmiller713/bamazon/issues"
+  },
+  "homepage": "https://github.com/bcmiller713/bamazon#readme",
+  "dependencies": {
+    "inquirer": "^3.2.0",
+    "mysql": "^2.13.0"
+  }
+}
