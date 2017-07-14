@@ -11,6 +11,7 @@ var connection = mysql.createConnection({
 
 connection.connect(function(err) {
     if (err) throw err;
+	console.log("\n----------Welcome to the Bamazon Marketplace----------\n");
     displayForSale();
 });
 
@@ -19,12 +20,11 @@ function displayForSale() {
 	connection.query(
 		"SELECT item_id, product_name, price FROM products",
 		function(err, res) {
-			console.log("----------Welcome to the Bamazon Marketplace----------\n")
 			for (var i = 0; i < res.length; i++) {
 				console.log(
 					"Item ID: " + res[i].item_id +
 					" || Product Name: " + res[i].product_name +
-					" || Price: $" + res[i].price + "\n"
+					" || Price: $" + res[i].price
 				);
 			}
 			customerPrompt();
@@ -37,12 +37,12 @@ function customerPrompt() {
 		{
 			name: "id",
 			type: "input",
-			message: "Enter the ID of the item you would like to purchase"
+			message: "Enter the ID of the item you would like to purchase: "
 		},
 		{
 			name: "quantity",
 			type: "input",
-			message: "Enter the quantity you would like to purchase of this item"
+			message: "Enter the quantity of this item you would like to purchase: "
 		}
 	]).then(function(response) {
 		connection.query(
@@ -53,7 +53,8 @@ function customerPrompt() {
 					console.log(
 						"\n----------------------------------------------------------\n" + 
 						"I'm sorry, the product you have selected is out of stock." + 
-						"\n----------------------------------------------------------\n");
+						"\n----------------------------------------------------------\n"
+					);
 					displayForSale();
 				}
 				else if (res[itemIndex].stock_quantity < response.quantity) {
@@ -61,7 +62,8 @@ function customerPrompt() {
 						"\n----------------------------------------------------------------------------------------------------\n" +  
 						"I'm sorry, the product you have selected is almost out of stock." + 
 						"There are only " + res[itemIndex].stock_quantity + " unit(s) remaining." + 
-						"\n----------------------------------------------------------------------------------------------------\n");
+						"\n----------------------------------------------------------------------------------------------------\n"
+					);
 					displayForSale();
 				}
 				else {
@@ -69,7 +71,8 @@ function customerPrompt() {
 					console.log(
 						"\n--------------------------------------------------------------------\n" +  
 						"Thank you for your purchase. Your account has been billed for $" + invoice + 
-						"\n--------------------------------------------------------------------\n");
+						"\n--------------------------------------------------------------------\n"
+					);
 					connection.query(
 						"UPDATE products SET ? WHERE ?",
 						[
